@@ -20,6 +20,10 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+
+        buildConfigField "String", "API_URL", "\"https://gateway.marvel.com/v1/public/\""
+        buildConfigField "String", "API_KEY", "\"ec6f35596330451aca8284fc7d5344de\""
+        buildConfigField "String", "HASH", "\"8d153491b2d886139db70c8f2bda20d7\""
     }
 
     buildTypes {
@@ -68,6 +72,12 @@ dependencies {
     //dagger hilt
     implementation "com.google.dagger:hilt-android:2.45"
     kapt "com.google.dagger:hilt-android-compiler:2.45"
+
+    //retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation "com.squareup.okhttp3:okhttp:4.11.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.11.0"
 
     testImplementation 'junit:junit:4.13.2'
 
