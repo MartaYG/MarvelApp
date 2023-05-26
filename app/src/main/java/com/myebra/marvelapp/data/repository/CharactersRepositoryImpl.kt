@@ -14,16 +14,13 @@ class CharactersRepositoryImpl @Inject constructor(
 ) : CharactersRepository{
 
     override fun getAllCharacters(): Flow<List<Character>> = channelFlow {
-        charactersFactory.remoteCharacterDataStore.getAllCharacters().collectLatest { remoteCharacters ->
-            try{
+        try{
+            charactersFactory.remoteCharacterDataStore.getAllCharacters().collectLatest { remoteCharacters ->
                 send(remoteCharacters)
-
-            }catch (exception:Exception){
-                Log.e("Error", exception.message ?: exception.toString())
-                send(emptyList())
             }
+        }catch (exception:Exception){
+            Log.e("Error", exception.message ?: exception.toString())
+            send(emptyList())
         }
     }
-
-
 }
