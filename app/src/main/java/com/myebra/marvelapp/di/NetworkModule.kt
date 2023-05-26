@@ -1,6 +1,7 @@
 package com.myebra.marvelapp.di
 
 import com.myebra.marvelapp.BuildConfig
+import com.myebra.marvelapp.data.datasource.features.character.remote.api.CharacterService
 import com.myebra.marvelapp.data.datasource.remote.service.RemoteService
 import dagger.Module
 import dagger.Provides
@@ -22,4 +23,9 @@ object NetworkModule {
         .addConverterFactory(GsonConverterFactory.create())
         .client(RemoteService.httpClient())
         .build()
+
+    @Singleton
+    @Provides
+    fun providesCharacterServiceClient(retrofit: Retrofit) : CharacterService =
+        retrofit.create(CharacterService::class.java)
 }
