@@ -5,6 +5,9 @@ import com.myebra.marvelapp.data.datasource.features.character.remote.api.Charac
 import com.myebra.marvelapp.data.datasource.features.character.remote.impl.CharacterRemoteDataStoreImpl
 import com.myebra.marvelapp.data.datasource.remote.service.RemoteService
 import com.myebra.marvelapp.data.datastore.features.characters.CharacterDataStore
+import com.myebra.marvelapp.data.repository.CharactersRepositoryImpl
+import com.myebra.marvelapp.data.repository.factory.features.characters.factory.CharactersFactory
+import com.myebra.marvelapp.domain.repository.features.characters.CharactersRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,6 +26,10 @@ object NetworkModule {
     @Provides
     fun providesCharacterRemoteDataStore(characterService: CharacterService) : CharacterDataStore =
         CharacterRemoteDataStoreImpl(characterService)
+
+    @Provides
+    fun providesCharactersRepository(charactersFactory: CharactersFactory) : CharactersRepository =
+        CharactersRepositoryImpl(charactersFactory)
 
     @Singleton
     @Provides
