@@ -1,6 +1,5 @@
 package com.myebra.marvelapp.data.repository
 
-import android.util.Log
 import com.myebra.marvelapp.data.repository.factory.features.characters.factory.CharactersFactory
 import com.myebra.marvelapp.domain.models.features.characters.Character
 import com.myebra.marvelapp.domain.repository.features.characters.CharactersRepository
@@ -13,14 +12,9 @@ class CharactersRepositoryImpl @Inject constructor(
     private val charactersFactory: CharactersFactory
 ) : CharactersRepository{
 
-    override fun getAllCharacters(): Flow<List<Character>> = channelFlow {
-        try{
-            charactersFactory.remoteCharacterDataStore.getAllCharacters().collectLatest { remoteCharacters ->
-                send(remoteCharacters)
-            }
-        }catch (exception:Exception){
-            Log.e("Error", exception.message ?: exception.toString())
-            send(emptyList())
+    override fun getAllCharacters(page : Int, limit : Int): Flow<List<Character>> = channelFlow {
+        charactersFactory.remoteCharacterDataStore.getAllCharacters(page=page,limit=limit).collectLatest { remoteCharacters ->
+            send(remoteCharacters)
         }
     }
 }
