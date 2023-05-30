@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface CharacterDataStore {
 
-    fun getAllCharacters(): Flow<List<Character>>
+    fun getAllCharacters(page : Int,limit : Int): Flow<List<Character>>
 }
