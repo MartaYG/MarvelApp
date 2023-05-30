@@ -8,7 +8,9 @@ import retrofit2.http.Query
 interface CharacterService {
 
     @GET("characters")
-    suspend fun getAllCharcters(
+    suspend fun getAllCharacters(
+        @Query("offset") page : Int,
+        @Query("limit") limit : Int,
         @Query("ts") ts : Int = 1,
         @Query("apikey") apikey : String = BuildConfig.API_KEY,
         @Query("hash") hash : String = BuildConfig.HASH
