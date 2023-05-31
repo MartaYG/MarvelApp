@@ -13,3 +13,15 @@ fun RemoteAllCharacters.allCharactersMapper(): List<Character> =
             description = remoteCharacter.description
         )
     }
+
+fun RemoteAllCharacters.characterMapper(): Character{
+    val remoteCharacter = this.dataCharacters.charactersResults[0]
+    return Character(
+        characterId = remoteCharacter.characterId.toLong(),
+        name = remoteCharacter.name,
+        thumbnail = "${remoteCharacter.thumbnail.path}.${remoteCharacter.thumbnail.extension}",
+        comicCount = remoteCharacter.comics.comicCount,
+        description = remoteCharacter.description
+    )
+}
+
