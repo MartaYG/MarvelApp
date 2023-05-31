@@ -2,6 +2,7 @@ package com.myebra.marvelapp.ui.features.characterdetails.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
@@ -39,19 +40,23 @@ class CharacterDetailsActivity : AppCompatActivity() {
                 this@CharacterDetailsActivity.viewModel.characterState.collectLatest { character->
                     withContext(Dispatchers.Main){
                         when(character){
+                            is ResourceState.Loading ->{
+                                val loading = character.load as Int
+                                binding.pbCharacter.visibility = loading
+                            }
                             is ResourceState.Error ->
                                 Toast.makeText(applicationContext, "error", Toast.LENGTH_SHORT).show()
 
                             is ResourceState.Success -> {
+                                binding.pbCharacter.visibility = View.GONE
                                 loadedCharacter = character.data as Character
-                                withContext(Dispatchers.Main){
                                     binding.ivCharacterDetailsThumbnail.load(loadedCharacter?.thumbnail)
                                     binding.tvCharacterDetailsName.text = loadedCharacter?.name
                                     binding.tvCharacterDetailsDescription.text = loadedCharacter?.description
-                                }
                             }
                             else -> {}
-                        }                    }
+                        }
+                    }
                 }
             }
         }

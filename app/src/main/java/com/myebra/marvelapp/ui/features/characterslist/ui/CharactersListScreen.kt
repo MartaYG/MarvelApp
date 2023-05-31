@@ -48,7 +48,7 @@ fun CharactersListScreen(charactersListViewModel: CharactersListViewModel, onIte
     when(loadingState){
 
         is ResourceState.Loading ->
-            if((loadingState as ResourceState.Loading<*>).isLoading == true) {
+            if((loadingState as ResourceState.Loading<*>).load == true) {
                 Box(modifier = Modifier.fillMaxSize()) {
                     CircularProgressIndicator(
                         modifier = Modifier.align(Alignment.Center),
