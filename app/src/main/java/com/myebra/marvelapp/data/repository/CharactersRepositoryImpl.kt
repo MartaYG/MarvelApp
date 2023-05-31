@@ -17,4 +17,11 @@ class CharactersRepositoryImpl @Inject constructor(
             send(remoteCharacters)
         }
     }
+
+    override fun getCharacterDetails(characterId: Long): Flow<Character> = channelFlow {
+        charactersFactory.remoteCharacterDataStore.getCharacterDetails(characterId).collectLatest { remoteCharacter ->
+            send(remoteCharacter)
+        }
+    }
+
 }
