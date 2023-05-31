@@ -5,5 +5,5 @@ data class Character (
     val name : String,
     val thumbnail: String,
     val comicCount: Int,
-    val description: String?
+    val description: String
 )

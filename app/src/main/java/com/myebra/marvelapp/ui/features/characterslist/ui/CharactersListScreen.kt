@@ -1,6 +1,7 @@
 package com.myebra.marvelapp.ui.features.characterslist.ui
 
 import android.widget.Toast
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -38,7 +39,7 @@ import com.myebra.marvelapp.ui.features.characterslist.viewmodels.CharactersList
 import com.myebra.marvelapp.ui.common.ResourceState
 
 @Composable
-fun CharactersListScreen(charactersListViewModel: CharactersListViewModel){
+fun CharactersListScreen(charactersListViewModel: CharactersListViewModel, onItemClick: (characterId:Long)->Unit){
 
     val appContext = LocalContext.current
     val loadingState by charactersListViewModel.loadingState.collectAsState()
@@ -62,19 +63,24 @@ fun CharactersListScreen(charactersListViewModel: CharactersListViewModel){
             LazyVerticalGrid(columns = GridCells.Fixed(2)) {
                 items(count = charactersData.itemCount) { index ->
                     charactersData[index]?.let { item ->
-                        CharacterItem(item)
+                        CharacterItem(item){
+                            onItemClick(item.characterId)
+                        }
                     }
                 }
             }
+
+        else -> {}
     }
 }
 
 @Composable
-fun CharacterItem(item : Character) {
+fun CharacterItem(item: Character, onItemClick: (characterId: Long) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(16.dp)
+            .clickable{ onItemClick(item.characterId) },
         shape = MaterialTheme.shapes.medium,
 
     ) {

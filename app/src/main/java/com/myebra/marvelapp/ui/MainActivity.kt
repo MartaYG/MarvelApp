@@ -1,5 +1,6 @@
-package com.myebra.marvelapp
+package com.myebra.marvelapp.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -7,10 +8,8 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import com.myebra.marvelapp.ui.features.characterdetails.ui.CharacterDetailsActivity
 import com.myebra.marvelapp.ui.features.characterslist.ui.CharactersListScreen
 import com.myebra.marvelapp.ui.features.characterslist.viewmodels.CharactersListViewModel
 import com.myebra.marvelapp.ui.theme.MarvelAppTheme
@@ -29,25 +28,17 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    CharactersListScreen(charactersListViewModel = charactersListViewModel)
+                    CharactersListScreen(
+                        charactersListViewModel = charactersListViewModel,
+                        onItemClick = { characterId -> launchCharacterDetails(characterId) }
+                    )
                 }
             }
         }
     }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MarvelAppTheme {
-        Greeting("Android")
+    private fun launchCharacterDetails(idCharacter: Long){
+        val intent = Intent(this, CharacterDetailsActivity::class.java)
+        intent.putExtra("ID_CHARACTER",idCharacter)
+        this.startActivity(intent)
     }
 }
