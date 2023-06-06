@@ -14,20 +14,50 @@ class CharactersRepositoryImpl @Inject constructor(
 ) : CharactersRepository{
 
     override fun getAllCharacters(page : Int, limit : Int): Flow<List<Character>> = channelFlow {
-        charactersFactory.remoteCharacterDataStore.getAllCharacters(page=page,limit=limit).collectLatest { remoteCharacters ->
-            send(remoteCharacters)
+        charactersFactory.cacheCharacterDataStore.getAllCharacters(page=page,limit=limit).collectLatest {cacheCharacters ->
+            if(cacheCharacters.isEmpty()){
+                charactersFactory.remoteCharacterDataStore.getAllCharacters(page=page,limit=limit).collectLatest { remoteCharacters ->
+                    charactersFactory.cacheCharacterDataStore.insertAllCharacters(*remoteCharacters.toTypedArray())
+                    send(remoteCharacters)
+                }
+            }else{
+                send(cacheCharacters)
+            }
         }
     }
 
     override fun getCharacterDetails(characterId: Long): Flow<Character> = channelFlow {
-        charactersFactory.remoteCharacterDataStore.getCharacterDetails(characterId).collectLatest { remoteCharacter ->
-            send(remoteCharacter)
+        charactersFactory.cacheCharacterDataStore.getCharacterDetails(characterId).collectLatest { cacheCharacter ->
+            if(cacheCharacter.characterId == 0L){
+                charactersFactory.remoteCharacterDataStore.getCharacterDetails(characterId).collectLatest { remoteCharacter ->
+                    charactersFactory.cacheCharacterDataStore.insertAllCharacters(remoteCharacter)
+                    send(remoteCharacter)
+                }
+            }else{
+                send(cacheCharacter)
+            }
+
         }
     }
 
     override fun getComicsCharacter(characterId: Long): Flow<List<Comic>> = channelFlow {
-        charactersFactory.remoteCharacterDataStore.getComicsCharacter(characterId).collectLatest { remoteComicsCharacter ->
-            send(remoteComicsCharacter)
+        charactersFactory.cacheCharacterDataStore.getComicsCharacter(characterId).collectLatest {cacheComicsCharacter ->
+            if(cacheComicsCharacter.isEmpty()){
+                try {
+                    charactersFactory.remoteCharacterDataStore.getComicsCharacter(characterId)
+                        .collectLatest { remoteComicsCharacter ->
+                            charactersFactory.cacheCharacterDataStore.insertAllComicsCharacter(
+                                *remoteComicsCharacter.toTypedArray(),
+                                characterId = characterId
+                            )
+                            send(remoteComicsCharacter.toList())
+                        }
+                }catch (e: Exception){
+                    send(emptyList())
+                }
+            }else{
+                send(cacheComicsCharacter.toList())
+            }
         }
     }
 }

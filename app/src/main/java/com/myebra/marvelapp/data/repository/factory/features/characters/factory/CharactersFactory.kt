@@ -5,6 +5,8 @@ import javax.inject.Inject
 import javax.inject.Named
 
 open class CharactersFactory @Inject constructor(
-    @Named("remote_characters") val remoteCharacterDataStore: CharacterDataStore
+    @Named("remote_characters") val remoteCharacterDataStore: CharacterDataStore,
+    @Named("cache_characters") val cacheCharacterDataStore: CharacterDataStore
+
 ){
 }
