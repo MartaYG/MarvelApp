@@ -20,11 +20,14 @@
             android:name=".ui.features.characterdetails.ui.CharacterDetailsActivity"
             android:parentActivityName=".ui.MainActivity"
             android:label=""
-            android:exported="false" />
+            android:windowTranslucentStatus="true"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.App.Starting">
+            android:theme="@style/Theme.App.Starting"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
