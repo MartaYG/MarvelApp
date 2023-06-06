@@ -8,5 +8,10 @@ interface CharacterDataStore {
 
     fun getAllCharacters(page : Int,limit : Int): Flow<List<Character>>
     fun getCharacterDetails(characterId: Long) : Flow<Character>
+    suspend fun insertAllCharacters(vararg characters: Character)
     fun getComicsCharacter(characterId: Long) : Flow<List<Comic>>
+    suspend fun insertAllComicsCharacter(vararg comics: Comic, characterId: Long)
+
+
+
 }

@@ -7,7 +7,7 @@ import com.myebra.marvelapp.domain.models.features.characters.Comic
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun RemoteCharacters.allCharactersMapper(): List<Character> =
+fun RemoteCharacters.allCharactersRemoteMapper(): List<Character> =
     this.dataCharacters.charactersResults.map {remoteCharacter ->
         Character(
            characterId = remoteCharacter.characterId.toLong(),
@@ -18,7 +18,7 @@ fun RemoteCharacters.allCharactersMapper(): List<Character> =
         )
     }
 
-fun RemoteCharacters.characterMapper(): Character{
+fun RemoteCharacters.characterRemoteMapper(): Character{
     val remoteCharacter = this.dataCharacters.charactersResults[0]
     return Character(
         characterId = remoteCharacter.characterId.toLong(),
@@ -29,7 +29,7 @@ fun RemoteCharacters.characterMapper(): Character{
     )
 }
 
-fun RemoteComicsCharacter.comicsCharacterDetailMapper(): List<Comic> {
+fun RemoteComicsCharacter.comicsCharacterDetailRemoteMapper(): List<Comic> {
         val dateFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.getDefault())
         val newDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
