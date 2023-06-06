@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.myebra.marvelapp.ui.features.characterdetails.ui.CharacterDetailsActivity
 import com.myebra.marvelapp.ui.features.characterslist.ui.CharactersListScreen
 import com.myebra.marvelapp.ui.features.characterslist.viewmodels.CharactersListViewModel
@@ -21,6 +22,11 @@ class MainActivity : ComponentActivity() {
     private val charactersListViewModel : CharactersListViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        installSplashScreen().apply {
+            Thread.sleep(1000)
+        }
+
         setContent {
             MarvelAppTheme {
                 // A surface container using the 'background' color from the theme
