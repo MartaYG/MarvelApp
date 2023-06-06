@@ -41,12 +41,15 @@ import com.myebra.marvelapp.ui.features.characterdetails.viewmodels.CharacterDet
 
 @Composable
 fun ComicListCharacter(
-    characterDetailsViewModel: CharacterDetailsViewModel
+    characterDetailsViewModel: CharacterDetailsViewModel,
+    resultIdCharacter:Long
 ){
 
     var loadedComic : List<Comic>? = null
     val appContext = LocalContext.current
     val comicState by characterDetailsViewModel.comicState.collectAsStateWithLifecycle()
+    characterDetailsViewModel.fetchComicsCharacter(resultIdCharacter)
+
 
     when(comicState){
 

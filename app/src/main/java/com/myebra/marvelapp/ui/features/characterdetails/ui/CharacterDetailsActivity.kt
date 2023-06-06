@@ -60,7 +60,7 @@ class CharacterDetailsActivity : AppCompatActivity() {
                                     }else{
                                         binding.tvCharacterDetailsDescription.text = getString(R.string.character_details_description_empty)
                                     }
-                                 comicView.setContent { ComicListCharacter(characterDetailsViewModel = viewModel) }
+                                 comicView.setContent { ComicListCharacter(characterDetailsViewModel = viewModel, resultIdCharacter) }
                             }
                             else -> {}
                         }

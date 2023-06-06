@@ -43,7 +43,11 @@ class CharacterDetailsViewModel @Inject constructor(
                 .collectLatest{characterDetails->
                     _characterState.update { ResourceState.Success(characterDetails) }
                 }
+        }
+    }
 
+    fun fetchComicsCharacter(idCharacter:Long){
+        viewModelScope.launch(Dispatchers.IO){
             getComicsCharacterUseCase(idCharacter)
                 .catch { error ->
                     _comicState.update { ResourceState.Error(error) }
