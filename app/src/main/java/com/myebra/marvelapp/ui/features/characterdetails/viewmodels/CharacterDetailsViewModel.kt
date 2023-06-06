@@ -4,6 +4,7 @@ import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.myebra.marvelapp.domain.interactors.features.characters.GetCharacterDetailsUseCase
+import com.myebra.marvelapp.domain.interactors.features.characters.GetComicsCharacterUseCase
 import com.myebra.marvelapp.ui.common.ResourceState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -19,13 +20,17 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CharacterDetailsViewModel @Inject constructor(
-    private val getCharacterDetailsUseCase: GetCharacterDetailsUseCase
+    private val getCharacterDetailsUseCase: GetCharacterDetailsUseCase,
+    private val getComicsCharacterUseCase: GetComicsCharacterUseCase
 ):ViewModel(){
 
     private val _characterState by lazy { MutableStateFlow<ResourceState<*>>(ResourceState.Idle) }
     val characterState: StateFlow<ResourceState<*>> get() = _characterState
 
-    fun fetchCharacterDetails(idCharacter: Long){
+    private val _comicState by lazy { MutableStateFlow<ResourceState<*>>(ResourceState.Idle) }
+    val comicState:  StateFlow<ResourceState<*>> get() = _comicState
+
+     fun fetchCharacterDetails(idCharacter: Long){
         viewModelScope.launch(Dispatchers.IO) {
             getCharacterDetailsUseCase(idCharacter)
                 .catch {error ->
@@ -37,6 +42,14 @@ class CharacterDetailsViewModel @Inject constructor(
                 }
                 .collectLatest{characterDetails->
                     _characterState.update { ResourceState.Success(characterDetails) }
+                }
+
+            getComicsCharacterUseCase(idCharacter)
+                .catch { error ->
+                    _comicState.update { ResourceState.Error(error) }
+                }
+                .collectLatest { comics ->
+                    _comicState.update { ResourceState.Success(comics) }
                 }
         }
     }
