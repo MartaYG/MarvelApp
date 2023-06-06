@@ -35,5 +35,6 @@ class CharactersListViewModel @Inject constructor(
                 _loadingState.update { ResourceState.Success("") }
                 pagingData
             }
+
 }
     

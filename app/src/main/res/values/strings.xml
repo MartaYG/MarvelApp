@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">MarvelApp</string>
     <string name="title_activity_characters_list_screen">CharactersListScreen</string>
+
+    //character details
+    <string name="character_details_description_empty">there is no information on the character</string>
+
+    //comics character
+    <string name="comics_character_title">Comics:</string>
 </resources>
