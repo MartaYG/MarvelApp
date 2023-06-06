@@ -2,6 +2,7 @@ package com.myebra.marvelapp.data.repository
 
 import com.myebra.marvelapp.data.repository.factory.features.characters.factory.CharactersFactory
 import com.myebra.marvelapp.domain.models.features.characters.Character
+import com.myebra.marvelapp.domain.models.features.characters.Comic
 import com.myebra.marvelapp.domain.repository.features.characters.CharactersRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
@@ -24,4 +25,9 @@ class CharactersRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun getComicsCharacter(characterId: Long): Flow<List<Comic>> = channelFlow {
+        charactersFactory.remoteCharacterDataStore.getComicsCharacter(characterId).collectLatest { remoteComicsCharacter ->
+            send(remoteComicsCharacter)
+        }
+    }
 }
