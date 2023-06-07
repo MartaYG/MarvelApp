@@ -9,30 +9,30 @@
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_character_details_thumbnail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/ic_circle_background"
-            app:cardCornerRadius="75dp"
+        <FrameLayout
+            android:id="@+id/fl_character_details_thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:cardBackgroundColor="@color/white"
-            app:cardElevation="10dp">
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/iv_character_details_thumbnail"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center" />
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:scaleType="centerCrop" />
 
-        </androidx.cardview.widget.CardView>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/gradient" />
+
+        </FrameLayout>
 
         <ProgressBar
             android:id="@+id/pb_character"
@@ -49,37 +49,35 @@
             android:id="@+id/tv_character_details_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:textStyle="bold"
+            android:layout_marginTop="350dp"
+            android:layout_marginEnd="20dp"
+            android:textColor="@color/white"
             android:textSize="25sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cv_character_details_thumbnail"/>
-
-        <View
-            android:id="@+id/view_horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="30dp"
-            android:background="@color/material_dynamic_neutral70"
-            app:layout_constraintTop_toBottomOf="@+id/tv_character_details_name"
-            tools:ignore="MissingConstraints" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_character_details_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:textSize="25sp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="20dp"
+            android:textSize="20sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_horizontal" />
+            app:layout_constraintTop_toBottomOf="@+id/fl_character_details_thumbnail" />
 
         <androidx.compose.ui.platform.ComposeView
             android:id="@+id/cv_comics_character"
-            android:layout_width="match_parent"
+            android:layout_width="417dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_character_details_description" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

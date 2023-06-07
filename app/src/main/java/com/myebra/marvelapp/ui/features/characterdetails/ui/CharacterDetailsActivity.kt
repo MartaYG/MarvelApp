@@ -5,6 +5,11 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ComposeView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -14,6 +19,7 @@ import com.myebra.marvelapp.databinding.ActivityCharacterDetailsBinding
 import com.myebra.marvelapp.domain.models.features.characters.Character
 import com.myebra.marvelapp.ui.common.ResourceState
 import com.myebra.marvelapp.ui.features.characterdetails.viewmodels.CharacterDetailsViewModel
+import com.myebra.marvelapp.ui.theme.MarvelAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -31,7 +37,6 @@ class CharacterDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCharacterDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val comicView = binding.cvComicsCharacter
         val resultIdCharacter: Long = intent.extras?.getLong("ID_CHARACTER") ?: -1L
@@ -60,11 +65,28 @@ class CharacterDetailsActivity : AppCompatActivity() {
                                     }else{
                                         binding.tvCharacterDetailsDescription.text = getString(R.string.character_details_description_empty)
                                     }
-                                 comicView.setContent { ComicListCharacter(characterDetailsViewModel = viewModel, resultIdCharacter) }
+                                comicView(comicView,resultIdCharacter)
                             }
                             else -> {}
                         }
                     }
+                }
+            }
+        }
+    }
+
+    private fun comicView(comicView: ComposeView, resultIdCharacter: Long) {
+        comicView.setContent {
+            MarvelAppTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    ComicListCharacter(
+                        characterDetailsViewModel = viewModel,
+                        resultIdCharacter
+                    )
                 }
             }
         }

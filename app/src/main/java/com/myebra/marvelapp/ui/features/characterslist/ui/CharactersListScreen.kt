@@ -1,8 +1,8 @@
 package com.myebra.marvelapp.ui.features.characterslist.ui
 
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,14 +18,13 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Book
-import androidx.compose.material3.Card
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -76,59 +75,61 @@ fun CharactersListScreen(charactersListViewModel: CharactersListViewModel, onIte
 
 @Composable
 fun CharacterItem(item: Character, onItemClick: (characterId: Long) -> Unit) {
-    Card(
+    Box(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
-            .clickable{ onItemClick(item.characterId) },
-        shape = MaterialTheme.shapes.medium,
-
+            .size(250.dp)
+            .clip(shape = RoundedCornerShape(4.dp))
+            .clickable { onItemClick(item.characterId) }
     ) {
-        Column(
+        AsyncImage(
+            model = item.thumbnail,
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
+        )
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 6.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
+                .fillMaxSize()
+                .background(Color.Black.copy(alpha = 0.5f))
+                .padding(16.dp),
+            contentAlignment = Alignment.TopEnd
         ) {
-            AsyncImage(
-                model = item.thumbnail,
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(150.dp)
-                    .clip(shape = RoundedCornerShape(4.dp))
-            )
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
-                Text(
-                    text = item.name,
-                    fontWeight = FontWeight.Bold,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1,
-                    fontSize = 20.sp,
-                    modifier = Modifier
-                        .padding(top = 20.dp, start = 10.dp)
-                )
                 Row(
                     modifier = Modifier
-                        .padding(top = 10.dp)
-
+                        .fillMaxWidth()
+                        .padding(bottom = 10.dp)
                 ) {
                     Icon(
                         Icons.Filled.Book,
                         contentDescription = null,
-                        modifier = Modifier
-                            .padding(start = 10.dp)
+                        tint = Color.White,
+                        modifier = Modifier.padding(end = 4.dp)
                     )
                     Text(
                         text = item.comicCount.toString(),
                         overflow = TextOverflow.Ellipsis,
                         maxLines = 1,
+                        color = Color.White
                     )
                 }
+            }
+            Box(
+                modifier = Modifier
+                    .fillMaxSize(),
+                contentAlignment = Alignment.BottomEnd
+            ) {
+                Text(
+                    text = item.name,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp,
+                    color = Color.White
+                )
             }
         }
     }
