@@ -4,9 +4,11 @@
 
 En este proyecto se podrá visualizar una app sobre los personajes de Marvel Comics, en la que muestra una lista detalle sencilla.
 
-![MicrosoftTeams-image (8)](https://github.com/marta1196/MarvelApp/assets/34567942/ceaf3ceb-5f7d-4350-9fe4-534b8beb5b69). ![MicrosoftTeams-image (7)](https://github.com/marta1196/MarvelApp/assets/34567942/abc86f49-14ec-491e-afce-c3de06e8869e). 
+![MicrosoftTeams-image (8)](https://github.com/marta1196/MarvelApp/assets/34567942/6a855f6e-d829-40b9-8e80-ad18f2298a97) ![MicrosoftTeams-image (7)](https://github.com/marta1196/MarvelApp/assets/34567942/7b3fd9ab-bf01-40c9-ba4d-28d011f661c7) 
 
-![MicrosoftTeams-image (11)](https://github.com/marta1196/MarvelApp/assets/34567942/05a63739-adc8-4951-89d5-04851afac968). ![MicrosoftTeams-image (9)](https://github.com/marta1196/MarvelApp/assets/34567942/6a2860a7-e032-4047-831d-ef4d3dc61eaf)
+![MicrosoftTeams-image (11)](https://github.com/marta1196/MarvelApp/assets/34567942/fd9c969c-0d13-4a45-8d5a-fed1bbfd6e30) ![MicrosoftTeams-image (9)](https://github.com/marta1196/MarvelApp/assets/34567942/9cfd1d95-ae1a-4672-8251-b675abf59fe4)
+
+
 
 ## Estructura del proyecto
 
